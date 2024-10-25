@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 env:
-  IROHA_REF: 2.0.0-pre-rc.22
+  IROHA_REF: main
 
 jobs:
   pytest:
@@ -28,7 +28,7 @@ jobs:
           repository: 'hyperledger/iroha'
           ref: ${{ env.IROHA_REF}}
       - name: Run docker-compose.yml containers
-        run: docker compose -f ./configs/swarm/docker-compose.yml up --wait || exit 1
+        run: docker compose -f ./defaults/docker-compose.yml up --wait || exit 1
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Maturin build

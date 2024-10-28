@@ -280,7 +280,7 @@ impl PyAsset {
                     Decimal::from_i128_with_scale(n.mantissa() as i128, n.scale()).into_py(py);
                 Ok(quantity.into())
             }
-            AssetValue::Store(v) => {
+            AssetValue::Store(_v) => {
                 //let dict = MetadataWrapper(v.clone()).into_py(py)?;
                 //Ok(dict.into())
                 unimplemented!();

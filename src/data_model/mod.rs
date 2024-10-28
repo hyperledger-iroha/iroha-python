@@ -1,16 +1,6 @@
-use derive_more::{From, Into};
-
-use iroha_data_model::{metadata::Metadata};
-use iroha_data_model::query::SingularQueryOutputBox;
-use pyo3::{
-    exceptions::PyRuntimeError,
-    prelude::*,
-    types::{PyDict, PyList, PyString},
-};
+use pyo3::prelude::*;
 
 use self::account::*;
-use self::asset::*;
-use self::domain::*;
 
 pub mod account;
 pub mod asset;

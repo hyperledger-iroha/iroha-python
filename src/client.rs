@@ -1,5 +1,3 @@
-use paste::paste;
-
 use pyo3::{
     exceptions::{PyRuntimeError, PyValueError},
     prelude::*,
@@ -12,13 +10,11 @@ use iroha::config::{BasicAuth, WebLogin};
 use std::num::NonZeroU64;
 use std::str::FromStr;
 
-use crate::data_model::asset::{PyAsset, PyAssetDefinition, PyAssetDefinitionId, PyAssetId};
 use crate::data_model::block::*;
 use crate::data_model::crypto::*;
 use crate::data_model::role::*;
 use crate::data_model::tx::*;
-use crate::data_model::PyMirror;
-use crate::{data_model::account::PyAccountId, isi::PyInstruction};
+use crate::isi::PyInstruction;
 use iroha_crypto::{Hash, HashOf};
 use iroha_data_model::account::AccountId;
 use iroha_data_model::prelude::*;
@@ -144,9 +140,7 @@ impl Client {
 
         let mut items = Vec::new();
         for item in val {
-            items.push(
-                item.id.to_string()
-            );
+            items.push(item.id.to_string());
         }
         Ok(items)
     }
@@ -160,9 +154,27 @@ impl Client {
 
         let mut items = Vec::new();
         for item in val {
-            items.push(
-                item.id.to_string()
-            );
+            items.push(item.id.to_string());
+        }
+        Ok(items)
+    }
+
+    fn query_all_accounts_in_domain(&self, domain_id: &str) -> PyResult<Vec<String>> {
+        let val = self
+            .client
+            .query(query::account::FindAccounts)
+            .execute_all()
+            .map_err(|e| PyRuntimeError::new_err(format!("{e:?}")))?;
+
+        let mut items = Vec::new();
+        for item in val {
+            let string = item.id.to_string();
+            if string.len() > domain_id.len() + 1 {
+                let string = &string[string.len() - domain_id.len() - 1..];
+                if &string[0..1] == "@" && &string[1..] == domain_id {
+                    items.push(item.id.to_string());
+                }
+            }
         }
         Ok(items)
     }
@@ -176,9 +188,27 @@ impl Client {
 
         let mut items = Vec::new();
         for item in val {
-            items.push(
-                item.id.to_string()
-            );
+            items.push(item.id.to_string());
+        }
+        Ok(items)
+    }
+
+    fn query_all_assets_owned_by_account(&self, account_id: &str) -> PyResult<Vec<String>> {
+        let val = self
+            .client
+            .query(query::asset::FindAssets)
+            .execute_all()
+            .map_err(|e| PyRuntimeError::new_err(format!("{e:?}")))?;
+
+        let mut items = Vec::new();
+        for item in val {
+            let string = item.id.to_string();
+            if string.len() > account_id.len() + 1 {
+                let string = &string[string.len() - account_id.len() - 1..];
+                if &string[0..1] == "#" && &string[1..] == account_id {
+                    items.push(item.id.to_string());
+                }
+            }
         }
         Ok(items)
     }
@@ -192,9 +222,7 @@ impl Client {
 
         let mut items = Vec::new();
         for item in val {
-            items.push(
-                item.id.to_string()
-            );
+            items.push(item.id.to_string());
         }
         Ok(items)
     }
@@ -208,9 +236,7 @@ impl Client {
 
         let mut items = Vec::new();
         for item in val {
-            items.push(
-                item.into()
-            );
+            items.push(item.into());
         }
         Ok(items)
     }
@@ -224,9 +250,7 @@ impl Client {
 
         let mut items = Vec::new();
         for item in val {
-            items.push(
-                item.into()
-            );
+            items.push(item.into());
         }
         Ok(items)
     }
@@ -240,9 +264,7 @@ impl Client {
 
         let mut items = Vec::new();
         for item in val {
-            items.push(
-                item.to_string()
-            );
+            items.push(item.to_string());
         }
         Ok(items)
     }
@@ -250,16 +272,16 @@ impl Client {
     fn query_all_roles_of_account(&self, account_id: &str) -> PyResult<Vec<String>> {
         let val = self
             .client
-            .query(query::role::FindRolesByAccountId { id: AccountId::from_str(account_id)
-                .map_err(|e| PyValueError::new_err(e.to_string()))?})
+            .query(query::role::FindRolesByAccountId {
+                id: AccountId::from_str(account_id)
+                    .map_err(|e| PyValueError::new_err(e.to_string()))?,
+            })
             .execute_all()
             .map_err(|e| PyRuntimeError::new_err(format!("{e:?}")))?;
 
         let mut items = Vec::new();
         for item in val {
-            items.push(
-                item.to_string()
-            );
+            items.push(item.to_string());
         }
         Ok(items)
     }
@@ -273,41 +295,49 @@ impl Client {
 
         let mut items = Vec::new();
         for item in val {
-            items.push(
-                item.into()
-            );
+            items.push(item.into());
         }
         Ok(items)
     }
-}
 
-macro_rules! register_query {
-    ($query_name:ty; $ret:ty) => {
-        register_query!($query_name; $ret;);
-    };
-    ($query_name:ty; $ret:ty; $($param_name:ident: $param_typ:ty),*) => {
-        paste! {
-            #[pymethods]
-            impl Client {
-                fn [<$query_name:snake>](
-                    &self,
-                    $($param_name: $param_typ),*
-                ) -> PyResult<$ret> {
-                    #[allow(unused_imports)]
-                    use std::ops::Deref as _;
+    fn query_all_transactions_by_account(
+        &self,
+        account_id: &str,
+    ) -> PyResult<Vec<PyTransactionQueryOutput>> {
+        let val = self
+            .client
+            .query(query::transaction::FindTransactions)
+            .execute_all()
+            .map_err(|e| PyRuntimeError::new_err(format!("{e:?}")))?;
 
-                    let query = iroha_data_model::query::prelude::$query_name {
-                        $(
-                            $param_name: $param_name.deref().clone().into()
-                        ),*
-                    };
-                    let val = self.client.request(query)
-                        .map_err(|e| PyRuntimeError::new_err(format!("{e:?}")))?;
-                    val.mirror()
-                }
+        let mut items = Vec::new();
+        for item in val {
+            if item.transaction.value.payload().authority.to_string() == account_id {
+                items.push(item.into());
             }
         }
-    };
+        Ok(items)
+    }
+
+    fn query_transaction_by_hash(
+        &self,
+        tx_hash: [u8; Hash::LENGTH],
+    ) -> PyResult<PyTransactionQueryOutput> {
+        let val = self
+            .client
+            .query(query::transaction::FindTransactions)
+            .execute_all()
+            .map_err(|e| PyRuntimeError::new_err(format!("{e:?}")))?;
+
+        for item in val {
+            if item.transaction.value.hash()
+                == HashOf::from_untyped_unchecked(Hash::prehashed(tx_hash))
+            {
+                return Ok(item.into());
+            }
+        }
+        Err(PyRuntimeError::new_err("Transaction not found."))
+    }
 }
 
 pub fn register_items(_py: Python<'_>, module: &PyModule) -> PyResult<()> {

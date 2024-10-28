@@ -1,18 +1,10 @@
-use iroha_data_model::account::{prelude::*, Account, NewAccount};
+use iroha_data_model::account::{prelude::*, Account};
 
-use pyo3::{
-    exceptions::PyValueError,
-    prelude::*,
-    types::{PyDict, PyList},
-};
-use std::collections::BTreeMap;
+use pyo3::{exceptions::PyValueError, prelude::*, types::PyDict};
 
 use crate::mirror_struct;
 
-use super::{
-    asset::{PyAsset, PyAssetId},
-    crypto::PyPublicKey,
-};
+use super::crypto::PyPublicKey;
 
 mirror_struct! {
     #[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -64,7 +56,7 @@ impl PyAccount {
     }
 
     #[getter]
-    fn get_metadata(&self, py: Python<'_>) -> PyResult<Py<PyDict>> {
+    fn get_metadata(&self, _py: Python<'_>) -> PyResult<Py<PyDict>> {
         //MetadataWrapper(self.0.metadata.clone()).into_py(py)
         unimplemented!();
     }

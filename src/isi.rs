@@ -6,9 +6,7 @@ use pyo3::{exceptions::PyValueError, prelude::*};
 
 use std::str::FromStr;
 
-use crate::data_model::account::PyAccountId;
-use crate::data_model::asset::{PyAssetDefinitionId, PyAssetType, PyNewAssetDefinition};
-use crate::data_model::crypto::*;
+use crate::data_model::asset::PyAssetType;
 use rust_decimal::{prelude::FromPrimitive, Decimal};
 
 #[derive(Debug, Clone)]
@@ -148,8 +146,11 @@ impl PyInstruction {
         grant_to_account_id: &str,
         permission_tokens: Vec<(&str, &str)>,
     ) -> PyResult<PyInstruction> {
-        let mut role =
-            Role::new(RoleId::from_str(role_id).map_err(|e| PyValueError::new_err(e.to_string()))?, AccountId::from_str(grant_to_account_id).map_err(|e| PyValueError::new_err(e.to_string()))?);
+        let mut role = Role::new(
+            RoleId::from_str(role_id).map_err(|e| PyValueError::new_err(e.to_string()))?,
+            AccountId::from_str(grant_to_account_id)
+                .map_err(|e| PyValueError::new_err(e.to_string()))?,
+        );
         for (definition_id, json_string) in permission_tokens {
             role = role.add_permission(Permission::new(
                 iroha_schema::Ident::from_str(definition_id)

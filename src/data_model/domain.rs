@@ -1,13 +1,9 @@
 use iroha_data_model::domain::prelude::*;
-use iroha_data_model::domain::NewDomain;
 use pyo3::types::PyDict;
 use pyo3::{exceptions::PyValueError, prelude::*};
 
 use crate::data_model::account::*;
-use crate::data_model::asset::*;
 use crate::mirror_struct;
-
-use std::collections::BTreeMap;
 
 mirror_struct! {
     /// Domain id
@@ -61,7 +57,7 @@ impl PyDomain {
     }
 
     #[getter]
-    fn get_metadata(&self, py: Python<'_>) -> PyResult<Py<PyDict>> {
+    fn get_metadata(&self, _py: Python<'_>) -> PyResult<Py<PyDict>> {
         //MetadataWrapper(self.0.metadata.clone()).into_py(py)
         unimplemented!();
     }

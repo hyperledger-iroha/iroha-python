@@ -6,9 +6,6 @@ on:
   pull_request:
     branches: [main]
 
-env:
-  IROHA_REF: main
-
 jobs:
   pytest:
     runs-on: ubuntu-latest
@@ -20,26 +17,30 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
-        run: pip install poetry
-      - name: Checkout iroha main repo code
-        uses: actions/checkout@v4
-        with:
-          repository: 'hyperledger/iroha'
-          ref: ${{ env.IROHA_REF}}
-      - name: Run docker-compose.yml containers
-        run: docker compose -f ./defaults/docker-compose.yml up --wait || exit 1
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Maturin build
-        run: |
-          pip install maturin
-          maturin build
-          poetry add target/wheels/*
-      - name: Install project dependencies
-        run: poetry install
-      - name: Run tests
-        run: poetry run pytest tests
-      - name: Tear down docker containers
-        if: always()
-        run: docker stop $(docker ps -q) && docker rm $(docker ps -a -q)
+      - name: Install dependencies
+        run: pip install poetry tomli-w
+      - name: Checkout irohad repo code
+        run: git clone --depth 1 https://github.com/hyperledger-iroha/iroha.git -b 2.0.0-rc.1 iroha_daemon
+      - name: Install correct rust version
+        run: rustup install nightly-2024-09-09 && rustup component add rust-src --toolchain nightly-2024-09-09
+      - name: Set toolchain
+        run: rustup default nightly-2024-09-09
+      - name: Build irohad
+        run: cd iroha_daemon && cargo build --release && mkdir target/debug -p && cp target/release/irohad target/debug/irohad && cp target/release/iroha target/debug/iroha
+      - name: Build kagami
+        run: cd iroha_daemon && cargo build --bin kagami
+      - name: Build default executor
+        run: cd iroha_daemon && cargo run --release --bin iroha_wasm_builder -- build ./wasm_samples/default_executor --optimize --out-file ./defaults/executor.wasm
+      - name: Maturin build and Run tests
+        run: bash -c "  pip install maturin &&
+                        maturin build &&
+                        cd iroha_daemon && scripts/test_env.py setup && cd .. &&
+                        python -m venv .venv &&
+                        source .venv/bin/activate &&
+                        pip install pytest faker allure-pytest &&
+                        pip install --break-system-packages target/wheels/iroha-*.whl &&
+                        python -m pytest tests/"
+      - name: Tear down the network
+        run: cd iroha_daemon && scripts/test_env.py cleanup

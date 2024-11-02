@@ -13,12 +13,12 @@ pyo3 = { version = "0.20.0", features = ["multiple-pymethods", "rust_decimal"] }
 serde = { version = "1.0.193", features = ["derive"] }
 serde_json = "1.0.108"
 
-iroha = { git = "https://github.com/hyperledger/iroha.git", rev = "c99c41881334b1cbf6bf301f550bd6c3917165e3" }
-iroha_config = { git = "https://github.com/hyperledger/iroha.git", rev = "c99c41881334b1cbf6bf301f550bd6c3917165e3" }
-iroha_data_model = { git = "https://github.com/hyperledger/iroha.git", rev = "c99c41881334b1cbf6bf301f550bd6c3917165e3", features = ["transparent_api"] }
-iroha_crypto = { git = "https://github.com/hyperledger/iroha.git", rev = "c99c41881334b1cbf6bf301f550bd6c3917165e3" }
-iroha_schema = { git = "https://github.com/hyperledger/iroha.git", rev = "c99c41881334b1cbf6bf301f550bd6c3917165e3" }
-iroha_primitives = { git = "https://github.com/hyperledger/iroha.git", rev = "c99c41881334b1cbf6bf301f550bd6c3917165e3" }
+iroha = { git = "https://github.com/hyperledger/iroha.git", branch = "2.0.0-rc.1" }
+iroha_config = { git = "https://github.com/hyperledger/iroha.git", branch = "2.0.0-rc.1" }
+iroha_data_model = { git = "https://github.com/hyperledger/iroha.git", branch = "2.0.0-rc.1", features = ["transparent_api"] }
+iroha_crypto = { git = "https://github.com/hyperledger/iroha.git", branch = "2.0.0-rc.1" }
+iroha_schema = { git = "https://github.com/hyperledger/iroha.git", branch = "2.0.0-rc.1" }
+iroha_primitives = { git = "https://github.com/hyperledger/iroha.git", branch = "2.0.0-rc.1" }
 parity-scale-codec = { version = "3.6.9", default-features = false, features = ["derive"] }
 paste = "1.0.14"
 derive_more = "0.99.17"

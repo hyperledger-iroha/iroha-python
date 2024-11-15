@@ -1,7 +1,7 @@
 import re
 
 import allure
-import iroha
+import iroha2
 
 import pytest
 
@@ -20,7 +20,7 @@ def test_mint_asset(
     with allure.step(
             f'WHEN client mints an asset "{asset}"'):
         (client.submit_executable_only_success(
-            [iroha.Instruction
+            [iroha2.Instruction
              .mint_asset(
                 5,
                 asset)]))

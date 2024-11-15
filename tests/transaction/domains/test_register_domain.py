@@ -1,5 +1,5 @@
 import allure
-import iroha
+import iroha2
 import pytest
 
 from tests import client
@@ -15,7 +15,7 @@ def test_register_domain(
         GIVEN_new_domain_id):
     with allure.step(f'WHEN client registers the domain name "{GIVEN_new_domain_id}"'):
         (client.submit_executable_only_success(
-            [iroha.Instruction
+            [iroha2.Instruction
              .register_domain(GIVEN_new_domain_id)]))
     with allure.step(f'THEN Iroha should have the domain name "{GIVEN_new_domain_id}"'):
         assert GIVEN_new_domain_id in client.query_all_domains()

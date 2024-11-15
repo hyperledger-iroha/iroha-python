@@ -1,5 +1,5 @@
 import allure
-import iroha
+import iroha2
 
 from tests import client,account_id
 from tests.helpers import generate_public_key

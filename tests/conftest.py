@@ -2,7 +2,7 @@ import re
 import time
 
 import allure
-import iroha
+import iroha2
 import pytest
 
 from tests import client, fake
@@ -50,10 +50,10 @@ def GIVEN_registered_asset_definition(GIVEN_new_asset_definition_id):
     with allure.step(
             f'GIVEN registered asset definition "{GIVEN_new_asset_definition_id}"'):
         (client.submit_executable_only_success(
-            [iroha.Instruction
+            [iroha2.Instruction
             .register_asset_definition(
                 GIVEN_new_asset_definition_id,
-                iroha.AssetType.numeric_fractional(0))]))
+                iroha2.AssetType.numeric_fractional(0))]))
         return GIVEN_new_asset_definition_id
 
 @pytest.fixture()
@@ -61,7 +61,7 @@ def GIVEN_registered_domain(GIVEN_new_domain_id):
     """Fixture to provide a registered domain in Iroha"""
     with allure.step(f'GIVEN registered domain name "{GIVEN_new_domain_id}"'):
         (client.submit_executable_only_success(
-            [iroha.Instruction
+            [iroha2.Instruction
              .register_domain(GIVEN_new_domain_id)]))
         return GIVEN_new_domain_id
 
@@ -71,7 +71,7 @@ def GIVEN_registered_account(GIVEN_new_account_id):
     with allure.step(
             f'GIVEN client registered the account "{GIVEN_new_account_id}"'):
         (client.submit_executable_only_success(
-            [iroha.Instruction
+            [iroha2.Instruction
              .register_account(GIVEN_new_account_id)]))
         return GIVEN_new_account_id
 
@@ -83,7 +83,7 @@ def GIVEN_registered_domain_with_registered_accounts(
     with allure.step(
             f'GIVEN client registered the account "{GIVEN_new_account_id}"'):
         (client.submit_executable_only_success(
-            [iroha.Instruction
+            [iroha2.Instruction
              .register_account(GIVEN_new_account_id)]))
         return GIVEN_registered_domain
 
@@ -97,7 +97,7 @@ def GIVEN_registered_account_with_minted_assets(
     with allure.step(
             f'GIVEN client minted an asset "{asset}"'):
         (client.submit_executable_only_success(
-            [iroha.Instruction
+            [iroha2.Instruction
             .mint_asset(
                 5,
                 asset)]))
@@ -111,7 +111,7 @@ def GIVEN_minted_asset(
     with allure.step(
             f'GIVEN client mints an asset "{asset}"'):
         (client.submit_executable_only_success(
-            [iroha.Instruction
+            [iroha2.Instruction
              .mint_asset(
                 5,
                 asset)]))
@@ -123,6 +123,6 @@ def GIVEN_hash_of_registered_transaction(GIVEN_new_domain_id):
     """Fixture to provide a registered transaction in Iroha"""
     with allure.step(f'GIVEN registered domain name "{GIVEN_new_domain_id}"'):
         tx_hash_string = client.submit_executable_only_success(
-            [iroha.Instruction
+            [iroha2.Instruction
              .register_domain(GIVEN_new_domain_id)])
         return tx_hash_string

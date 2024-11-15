@@ -1,5 +1,5 @@
 import allure
-import iroha
+import iroha2
 import pytest
 
 from tests import client
@@ -16,7 +16,7 @@ def test_register_account(
     with allure.step(
             f'WHEN client registers the account "{GIVEN_new_account_id}"'):
         (client.submit_executable_only_success(
-            [iroha.Instruction
+            [iroha2.Instruction
              .register_account(GIVEN_new_account_id)]))
     with allure.step(
             f'THEN Iroha should have the "{GIVEN_new_account_id}" account'):

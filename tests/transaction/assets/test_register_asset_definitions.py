@@ -1,5 +1,5 @@
 import allure
-import iroha
+import iroha2
 
 import pytest
 
@@ -17,10 +17,10 @@ def test_register_asset_definition(
     with allure.step(
             f'WHEN client registers a new asset definition id "{GIVEN_new_asset_definition_id}"'):
         (client.submit_executable_only_success(
-            [iroha.Instruction
+            [iroha2.Instruction
              .register_asset_definition(
                 GIVEN_new_asset_definition_id,
-                iroha.AssetType.numeric_fractional(0))]))
+                iroha2.AssetType.numeric_fractional(0))]))
     with allure.step(
             f'THEN Iroha should have the "{GIVEN_new_asset_definition_id}" account'):
         assert GIVEN_new_asset_definition_id in client.query_all_asset_definitions()

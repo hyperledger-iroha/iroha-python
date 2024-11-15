@@ -1,5 +1,5 @@
 import allure
-import iroha
+import iroha2
 
 import pytest
 
@@ -16,7 +16,7 @@ def test_transfer_asset(
     with allure.step(
             f'WHEN client transfers an asset'):
         (client.submit_executable_only_success(
-            [iroha.Instruction.
+            [iroha2.Instruction.
             transfer(
                 5,
                 GIVEN_minted_asset,

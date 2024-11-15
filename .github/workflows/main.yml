@@ -21,6 +21,7 @@ jobs:
         run: rustup default nightly-2024-09-09
       - name: Maturin build
         run: |
+          pip install maturin
           maturin build
           mkdir dist
           cp target/wheels/* dist/

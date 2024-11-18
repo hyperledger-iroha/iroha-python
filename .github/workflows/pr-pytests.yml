@@ -40,7 +40,7 @@ jobs:
                         python -m venv .venv &&
                         source .venv/bin/activate &&
                         pip install pytest faker allure-pytest &&
-                        pip install --break-system-packages target/wheels/iroha-*.whl &&
+                        pip install --break-system-packages target/wheels/iroha2-*.whl &&
                         python -m pytest tests/"
       - name: Tear down the network
         run: cd iroha_daemon && scripts/test_env.py cleanup

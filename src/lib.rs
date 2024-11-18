@@ -4,7 +4,7 @@ mod client;
 mod data_model;
 mod isi;
 
-/// A Python module implemented in Rust.
+/// The iroha2 python SDK module, implemented in Rust.
 #[pymodule]
 #[pyo3(name = "iroha2")]
 fn iroha2_python(py: Python, m: &PyModule) -> PyResult<()> {

@@ -1,10 +1,14 @@
-name: Iroha 2 pull request pytests
+name: Iroha2:PR::Pytests
 
 on:
   repository_dispatch:
     types: [dispatch-event]
   pull_request:
     branches: [main]
+
+env:
+  TOOLCHAIN_VER: nightly-2024-09-09
+  IROHA_BRANCH: 2.0.0-rc.1
 
 jobs:
   pytest:
@@ -22,11 +26,11 @@ jobs:
       - name: Install dependencies
         run: pip install poetry tomli-w
       - name: Checkout irohad repo code
-        run: git clone --depth 1 https://github.com/hyperledger-iroha/iroha.git -b 2.0.0-rc.1 iroha_daemon
+        run: git clone --depth 1 https://github.com/hyperledger-iroha/iroha.git -b ${{ env.IROHA_BRANCH }} iroha_daemon
       - name: Install correct rust version
-        run: rustup install nightly-2024-09-09 && rustup component add rust-src --toolchain nightly-2024-09-09
+        run: rustup install ${{ env.TOOLCHAIN_VER }} && rustup component add rust-src --toolchain ${{ env.TOOLCHAIN_VER }}
       - name: Set toolchain
-        run: rustup default nightly-2024-09-09
+        run: rustup default ${{ env.TOOLCHAIN_VER }}
       - name: Build irohad
         run: cd iroha_daemon && cargo build --release && mkdir target/debug -p && cp target/release/irohad target/debug/irohad && cp target/release/iroha target/debug/iroha
       - name: Build kagami
@@ -39,8 +43,15 @@ jobs:
                         cd iroha_daemon && scripts/test_env.py setup && cd .. &&
                         python -m venv .venv &&
                         source .venv/bin/activate &&
-                        pip install pytest faker allure-pytest &&
+                        pip install pytest faker allure-pytest pytest-cov &&
                         pip install --break-system-packages target/wheels/iroha2-*.whl &&
-                        python -m pytest tests/"
+                        python -m pytest --cov=. --cov-report xml:coverage-reports/coverage.xml tests/"
       - name: Tear down the network
+        if: always()
         run: cd iroha_daemon && scripts/test_env.py cleanup
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-coverage
+          path: coverage-reports/coverage.xml
+          retention-days: 1

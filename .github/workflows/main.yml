@@ -1,7 +1,12 @@
-name: Iroha 2 main branch workflow
+name: Iroha2::Main
+
 on:
   push:
     branches: [main]
+
+env:
+  TOOLCHAIN_VER: nightly-2024-09-09
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,9 +21,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Install correct rust version
-        run: rustup install nightly-2024-09-09 && rustup component add rust-src --toolchain nightly-2024-09-09
+        run: rustup install ${{ env.TOOLCHAIN_VER }} && rustup component add rust-src --toolchain ${{ env.TOOLCHAIN_VER }}
       - name: Set toolchain
-        run: rustup default nightly-2024-09-09
+        run: rustup default ${{ env.TOOLCHAIN_VER }}
       - name: Maturin build
         run: |
           pip install maturin

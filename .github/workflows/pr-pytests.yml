@@ -36,7 +36,7 @@ jobs:
       - name: Build kagami
         run: cd iroha_daemon && cargo build --bin kagami
       - name: Build default executor
-        run: cd iroha_daemon && cargo run --release --bin iroha_wasm_builder -- build ./wasm_samples/default_executor --optimize --out-file ./defaults/executor.wasm
+        run: cd iroha_daemon && cargo run --release --bin iroha_wasm_builder -- build ./wasm/libs/default_executor --optimize --out-file ./defaults/executor.wasm
       - name: Maturin build and Run tests
         run: bash -c "  pip install maturin &&
                         maturin build &&

@@ -54,7 +54,7 @@ impl Client {
             basic_auth: Some(BasicAuth {
                 web_login: WebLogin::from_str(web_login)
                     .map_err(|e| PyValueError::new_err(e.to_string()))?,
-                password: iroha_primitives::small::SmallStr::from_str(password),
+                password: iroha::secrecy::SecretString::new(password.to_string()),
             }),
             torii_api_url: url::Url::parse(api_url)
                 .map_err(|e| PyValueError::new_err(e.to_string()))?,
@@ -286,7 +286,7 @@ impl Client {
         Ok(items)
     }
 
-    fn query_all_transactions(&self) -> PyResult<Vec<PyTransactionQueryOutput>> {
+    fn query_all_transactions(&self) -> PyResult<Vec<PyCommittedTransaction>> {
         let val = self
             .client
             .query(query::transaction::FindTransactions)
@@ -303,7 +303,7 @@ impl Client {
     fn query_all_transactions_by_account(
         &self,
         account_id: &str,
-    ) -> PyResult<Vec<PyTransactionQueryOutput>> {
+    ) -> PyResult<Vec<PyCommittedTransaction>> {
         let val = self
             .client
             .query(query::transaction::FindTransactions)
@@ -312,7 +312,7 @@ impl Client {
 
         let mut items = Vec::new();
         for item in val {
-            if item.transaction.value.payload().authority.to_string() == account_id {
+            if item.value.payload().authority.to_string() == account_id {
                 items.push(item.into());
             }
         }
@@ -322,7 +322,7 @@ impl Client {
     fn query_transaction_by_hash(
         &self,
         tx_hash: [u8; Hash::LENGTH],
-    ) -> PyResult<PyTransactionQueryOutput> {
+    ) -> PyResult<PyCommittedTransaction> {
         let val = self
             .client
             .query(query::transaction::FindTransactions)
@@ -330,7 +330,7 @@ impl Client {
             .map_err(|e| PyRuntimeError::new_err(format!("{e:?}")))?;
 
         for item in val {
-            if item.transaction.value.hash()
+            if item.value.hash()
                 == HashOf::from_untyped_unchecked(Hash::prehashed(tx_hash))
             {
                 return Ok(item.into());

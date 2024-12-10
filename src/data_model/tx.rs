@@ -3,35 +3,10 @@ use pyo3::{exceptions::PyValueError, prelude::*};
 use super::crypto::*;
 use super::PyAccountId;
 use iroha_crypto::{Hash, Signature};
-use iroha_data_model::prelude::{CommittedTransaction, SignedTransaction, TransactionQueryOutput};
+use iroha_data_model::prelude::{CommittedTransaction, SignedTransaction};
 use parity_scale_codec::{Decode, Encode};
 
 use super::PyMirror;
-
-#[pyclass(name = "TransactionQueryOutput")]
-#[derive(Clone, derive_more::From, derive_more::Into, derive_more::Deref)]
-pub struct PyTransactionQueryOutput(pub TransactionQueryOutput);
-
-impl PyMirror for TransactionQueryOutput {
-    type Mirror = PyTransactionQueryOutput;
-
-    fn mirror(self) -> PyResult<Self::Mirror> {
-        Ok(PyTransactionQueryOutput(self))
-    }
-}
-
-#[pymethods]
-impl PyTransactionQueryOutput {
-    #[getter]
-    fn get_block_hash(&self) -> [u8; Hash::LENGTH] {
-        self.0.block_hash.as_ref().clone()
-    }
-
-    #[getter]
-    fn get_transaction(&self) -> PyCommittedTransaction {
-        PyCommittedTransaction(self.0.transaction.clone())
-    }
-}
 
 #[pyclass(name = "CommittedTransaction")]
 #[derive(Clone, derive_more::From, derive_more::Into, derive_more::Deref)]
@@ -55,6 +30,11 @@ impl PyCommittedTransaction {
     #[getter]
     fn get_error(&self) -> Option<String> {
         self.0.error.as_ref().map(|e| e.to_string())
+    }
+
+    #[getter]
+    fn get_block_hash(&self) -> [u8; Hash::LENGTH] {
+        self.block_hash.as_ref().clone()
     }
 }
 
@@ -143,6 +123,6 @@ impl PySignedTransaction {
 
 pub fn register_items(_py: Python<'_>, module: &PyModule) -> PyResult<()> {
     module.add_class::<PySignedTransaction>()?;
-    module.add_class::<PyTransactionQueryOutput>()?;
+    module.add_class::<PyCommittedTransaction>()?;
     Ok(())
 }

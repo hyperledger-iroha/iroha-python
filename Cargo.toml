@@ -13,11 +13,11 @@ pyo3 = { version = "0.20.0", features = ["multiple-pymethods", "rust_decimal"] }
 serde = { version = "1.0.193", features = ["derive"] }
 serde_json = "1.0.108"
 
-iroha_client = { git = "https://github.com/hyperledger/iroha.git", branch = "iroha2-stable" }
-iroha_config = { git = "https://github.com/hyperledger/iroha.git", branch = "iroha2-stable" }
-iroha_data_model = { git = "https://github.com/hyperledger/iroha.git", branch = "iroha2-stable", features = ["transparent_api"] }
-iroha_crypto = { git = "https://github.com/hyperledger/iroha.git", branch = "iroha2-stable" }
-iroha_primitives = { git = "https://github.com/hyperledger/iroha.git", branch = "iroha2-stable" }
+iroha_client = { git = "https://github.com/hyperledger-iroha/iroha.git", branch = "stable" }
+iroha_config = { git = "https://github.com/hyperledger-iroha/iroha.git", branch = "stable" }
+iroha_data_model = { git = "https://github.com/hyperledger-iroha/iroha.git", branch = "stable", features = ["transparent_api"] }
+iroha_crypto = { git = "https://github.com/hyperledger-iroha/iroha.git", branch = "stable" }
+iroha_primitives = { git = "https://github.com/hyperledger-iroha/iroha.git", branch = "stable" }
 parity-scale-codec = { version = "3.6.5", default-features = false, features = ["derive"] }
 paste = "1.0.14"
 derive_more = "0.99.17"

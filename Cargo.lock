@@ -176,10 +176,10 @@ version = "0.26.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0f77d243921b0979fbbd728dd2d5162e68ac8252976797c24eb5b3a6af9090dc"
 dependencies = [
- "flate2",
  "http",
  "log",
- "native-tls",
+ "rustls",
+ "rustls-native-certs",
  "url",
 ]
 
@@ -471,7 +471,7 @@ dependencies = [
  "js-sys",
  "num-traits",
  "wasm-bindgen",
- "windows-targets",
+ "windows-targets 0.48.5",
 ]
 
 [[package]]
@@ -946,7 +946,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f258a7194e7f7c2a7837a8913aeab7fd8c383457034fa20ce4dd3dcb813e8eb8"
 dependencies = [
  "libc",
- "windows-sys",
+ "windows-sys 0.48.0",
 ]
 
 [[package]]
@@ -1016,7 +1016,7 @@ dependencies = [
  "cfg-if",
  "libc",
  "redox_syscall 0.3.5",
- "windows-sys",
+ "windows-sys 0.48.0",
 ]
 
 [[package]]
@@ -1849,7 +1849,7 @@ version = "0.5.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5444c27eef6923071f7ebcc33e3444508466a76f7a2b93da00ed6e19f30c1ddb"
 dependencies = [
- "windows-sys",
+ "windows-sys 0.48.0",
 ]
 
 [[package]]
@@ -2018,7 +2018,7 @@ dependencies = [
 [[package]]
 name = "iroha_client"
 version = "2.0.0-pre-rc.20"
-source = "git+https://github.com/hyperledger/iroha.git?branch=iroha2-stable#395a578dd5774a5d4f2a69bc783df76cf6934d88"
+source = "git+https://github.com/hyperledger-iroha/iroha.git?branch=stable#5d44d595a65605b7999726e4a2a38dda949f2e63"
 dependencies = [
  "attohttpc",
  "base64",
@@ -2042,13 +2042,14 @@ dependencies = [
  "thiserror",
  "tokio",
  "tokio-tungstenite",
+ "tungstenite",
  "url",
 ]
 
 [[package]]
 name = "iroha_config"
 version = "2.0.0-pre-rc.20"
-source = "git+https://github.com/hyperledger/iroha.git?branch=iroha2-stable#395a578dd5774a5d4f2a69bc783df76cf6934d88"
+source = "git+https://github.com/hyperledger-iroha/iroha.git?branch=stable#5d44d595a65605b7999726e4a2a38dda949f2e63"
 dependencies = [
  "cfg-if",
  "derive_more",
@@ -2073,7 +2074,7 @@ dependencies = [
 [[package]]
 name = "iroha_config_base"
 version = "2.0.0-pre-rc.20"
-source = "git+https://github.com/hyperledger/iroha.git?branch=iroha2-stable#395a578dd5774a5d4f2a69bc783df76cf6934d88"
+source = "git+https://github.com/hyperledger-iroha/iroha.git?branch=stable#5d44d595a65605b7999726e4a2a38dda949f2e63"
 dependencies = [
  "crossbeam",
  "displaydoc",
@@ -2090,7 +2091,7 @@ dependencies = [
 [[package]]
 name = "iroha_config_derive"
 version = "2.0.0-pre-rc.20"
-source = "git+https://github.com/hyperledger/iroha.git?branch=iroha2-stable#395a578dd5774a5d4f2a69bc783df76cf6934d88"
+source = "git+https://github.com/hyperledger-iroha/iroha.git?branch=stable#5d44d595a65605b7999726e4a2a38dda949f2e63"
 dependencies = [
  "iroha_macro_utils",
  "proc-macro-error",
@@ -2102,7 +2103,7 @@ dependencies = [
 [[package]]
 name = "iroha_crypto"
 version = "2.0.0-pre-rc.20"
-source = "git+https://github.com/hyperledger/iroha.git?branch=iroha2-stable#395a578dd5774a5d4f2a69bc783df76cf6934d88"
+source = "git+https://github.com/hyperledger-iroha/iroha.git?branch=stable#5d44d595a65605b7999726e4a2a38dda949f2e63"
 dependencies = [
  "derive_more",
  "getset",
@@ -2119,7 +2120,7 @@ dependencies = [
 [[package]]
 name = "iroha_data_model"
 version = "2.0.0-pre-rc.20"
-source = "git+https://github.com/hyperledger/iroha.git?branch=iroha2-stable#395a578dd5774a5d4f2a69bc783df76cf6934d88"
+source = "git+https://github.com/hyperledger-iroha/iroha.git?branch=stable#5d44d595a65605b7999726e4a2a38dda949f2e63"
 dependencies = [
  "base64",
  "derive_more",
@@ -2143,7 +2144,7 @@ dependencies = [
 [[package]]
 name = "iroha_data_model_derive"
 version = "2.0.0-pre-rc.20"
-source = "git+https://github.com/hyperledger/iroha.git?branch=iroha2-stable#395a578dd5774a5d4f2a69bc783df76cf6934d88"
+source = "git+https://github.com/hyperledger-iroha/iroha.git?branch=stable#5d44d595a65605b7999726e4a2a38dda949f2e63"
 dependencies = [
  "darling",
  "iroha_macro_utils",
@@ -2156,7 +2157,7 @@ dependencies = [
 [[package]]
 name = "iroha_derive"
 version = "2.0.0-pre-rc.20"
-source = "git+https://github.com/hyperledger/iroha.git?branch=iroha2-stable#395a578dd5774a5d4f2a69bc783df76cf6934d88"
+source = "git+https://github.com/hyperledger-iroha/iroha.git?branch=stable#5d44d595a65605b7999726e4a2a38dda949f2e63"
 dependencies = [
  "darling",
  "manyhow",
@@ -2168,7 +2169,7 @@ dependencies = [
 [[package]]
 name = "iroha_futures"
 version = "2.0.0-pre-rc.20"
-source = "git+https://github.com/hyperledger/iroha.git?branch=iroha2-stable#395a578dd5774a5d4f2a69bc783df76cf6934d88"
+source = "git+https://github.com/hyperledger-iroha/iroha.git?branch=stable#5d44d595a65605b7999726e4a2a38dda949f2e63"
 dependencies = [
  "iroha_config",
  "iroha_futures_derive",
@@ -2182,7 +2183,7 @@ dependencies = [
 [[package]]
 name = "iroha_futures_derive"
 version = "2.0.0-pre-rc.20"
-source = "git+https://github.com/hyperledger/iroha.git?branch=iroha2-stable#395a578dd5774a5d4f2a69bc783df76cf6934d88"
+source = "git+https://github.com/hyperledger-iroha/iroha.git?branch=stable#5d44d595a65605b7999726e4a2a38dda949f2e63"
 dependencies = [
  "iroha_macro_utils",
  "manyhow",
@@ -2194,7 +2195,7 @@ dependencies = [
 [[package]]
 name = "iroha_logger"
 version = "2.0.0-pre-rc.20"
-source = "git+https://github.com/hyperledger/iroha.git?branch=iroha2-stable#395a578dd5774a5d4f2a69bc783df76cf6934d88"
+source = "git+https://github.com/hyperledger-iroha/iroha.git?branch=stable#5d44d595a65605b7999726e4a2a38dda949f2e63"
 dependencies = [
  "color-eyre",
  "derive_more",
@@ -2214,7 +2215,7 @@ dependencies = [
 [[package]]
 name = "iroha_macro"
 version = "2.0.0-pre-rc.20"
-source = "git+https://github.com/hyperledger/iroha.git?branch=iroha2-stable#395a578dd5774a5d4f2a69bc783df76cf6934d88"
+source = "git+https://github.com/hyperledger-iroha/iroha.git?branch=stable#5d44d595a65605b7999726e4a2a38dda949f2e63"
 dependencies = [
  "iroha_derive",
 ]
@@ -2222,7 +2223,7 @@ dependencies = [
 [[package]]
 name = "iroha_macro_utils"
 version = "2.0.0-pre-rc.20"
-source = "git+https://github.com/hyperledger/iroha.git?branch=iroha2-stable#395a578dd5774a5d4f2a69bc783df76cf6934d88"
+source = "git+https://github.com/hyperledger-iroha/iroha.git?branch=stable#5d44d595a65605b7999726e4a2a38dda949f2e63"
 dependencies = [
  "darling",
  "drop_bomb",
@@ -2236,7 +2237,7 @@ dependencies = [
 [[package]]
 name = "iroha_primitives"
 version = "2.0.0-pre-rc.20"
-source = "git+https://github.com/hyperledger/iroha.git?branch=iroha2-stable#395a578dd5774a5d4f2a69bc783df76cf6934d88"
+source = "git+https://github.com/hyperledger-iroha/iroha.git?branch=stable#5d44d595a65605b7999726e4a2a38dda949f2e63"
 dependencies = [
  "derive_more",
  "displaydoc",
@@ -2255,7 +2256,7 @@ dependencies = [
 [[package]]
 name = "iroha_primitives_derive"
 version = "2.0.0-pre-rc.20"
-source = "git+https://github.com/hyperledger/iroha.git?branch=iroha2-stable#395a578dd5774a5d4f2a69bc783df76cf6934d88"
+source = "git+https://github.com/hyperledger-iroha/iroha.git?branch=stable#5d44d595a65605b7999726e4a2a38dda949f2e63"
 dependencies = [
  "manyhow",
  "proc-macro2",
@@ -2266,7 +2267,7 @@ dependencies = [
 [[package]]
 name = "iroha_schema"
 version = "2.0.0-pre-rc.20"
-source = "git+https://github.com/hyperledger/iroha.git?branch=iroha2-stable#395a578dd5774a5d4f2a69bc783df76cf6934d88"
+source = "git+https://github.com/hyperledger-iroha/iroha.git?branch=stable#5d44d595a65605b7999726e4a2a38dda949f2e63"
 dependencies = [
  "fixnum",
  "iroha_schema_derive",
@@ -2276,7 +2277,7 @@ dependencies = [
 [[package]]
 name = "iroha_schema_derive"
 version = "2.0.0-pre-rc.20"
-source = "git+https://github.com/hyperledger/iroha.git?branch=iroha2-stable#395a578dd5774a5d4f2a69bc783df76cf6934d88"
+source = "git+https://github.com/hyperledger-iroha/iroha.git?branch=stable#5d44d595a65605b7999726e4a2a38dda949f2e63"
 dependencies = [
  "darling",
  "manyhow",
@@ -2288,7 +2289,7 @@ dependencies = [
 [[package]]
 name = "iroha_telemetry"
 version = "2.0.0-pre-rc.20"
-source = "git+https://github.com/hyperledger/iroha.git?branch=iroha2-stable#395a578dd5774a5d4f2a69bc783df76cf6934d88"
+source = "git+https://github.com/hyperledger-iroha/iroha.git?branch=stable#5d44d595a65605b7999726e4a2a38dda949f2e63"
 dependencies = [
  "async-trait",
  "chrono",
@@ -2312,7 +2313,7 @@ dependencies = [
 [[package]]
 name = "iroha_telemetry_derive"
 version = "2.0.0-pre-rc.20"
-source = "git+https://github.com/hyperledger/iroha.git?branch=iroha2-stable#395a578dd5774a5d4f2a69bc783df76cf6934d88"
+source = "git+https://github.com/hyperledger-iroha/iroha.git?branch=stable#5d44d595a65605b7999726e4a2a38dda949f2e63"
 dependencies = [
  "proc-macro-error",
  "proc-macro2",
@@ -2323,7 +2324,7 @@ dependencies = [
 [[package]]
 name = "iroha_version"
 version = "2.0.0-pre-rc.20"
-source = "git+https://github.com/hyperledger/iroha.git?branch=iroha2-stable#395a578dd5774a5d4f2a69bc783df76cf6934d88"
+source = "git+https://github.com/hyperledger-iroha/iroha.git?branch=stable#5d44d595a65605b7999726e4a2a38dda949f2e63"
 dependencies = [
  "iroha_macro",
  "iroha_version_derive",
@@ -2337,7 +2338,7 @@ dependencies = [
 [[package]]
 name = "iroha_version_derive"
 version = "2.0.0-pre-rc.20"
-source = "git+https://github.com/hyperledger/iroha.git?branch=iroha2-stable#395a578dd5774a5d4f2a69bc783df76cf6934d88"
+source = "git+https://github.com/hyperledger-iroha/iroha.git?branch=stable#5d44d595a65605b7999726e4a2a38dda949f2e63"
 dependencies = [
  "darling",
  "manyhow",
@@ -2349,7 +2350,7 @@ dependencies = [
 [[package]]
 name = "iroha_wasm_builder"
 version = "2.0.0-pre-rc.20"
-source = "git+https://github.com/hyperledger/iroha.git?branch=iroha2-stable#395a578dd5774a5d4f2a69bc783df76cf6934d88"
+source = "git+https://github.com/hyperledger-iroha/iroha.git?branch=stable#5d44d595a65605b7999726e4a2a38dda949f2e63"
 dependencies = [
  "eyre",
  "path-absolutize",
@@ -2539,7 +2540,7 @@ checksum = "a4a650543ca06a924e8b371db273b2756685faae30f8487da1b56505a8f78b0c"
 dependencies = [
  "libc",
  "wasi 0.11.0+wasi-snapshot-preview1",
- "windows-sys",
+ "windows-sys 0.48.0",
 ]
 
 [[package]]
@@ -2547,24 +2548,6 @@ name = "miracl_core"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4330eca86d39f2b52d0481aa1e90fe21bfa61f11b0bf9b48ab95595013cefe48"
-
-[[package]]
-name = "native-tls"
-version = "0.2.11"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "07226173c32f2926027b63cce4bcd8076c3552846cbe7925f3aaffeac0a3b92e"
-dependencies = [
- "lazy_static",
- "libc",
- "log",
- "openssl",
- "openssl-probe",
- "openssl-sys",
- "schannel",
- "security-framework",
- "security-framework-sys",
- "tempfile",
-]
 
 [[package]]
 name = "nu-ansi-term"
@@ -2733,7 +2716,7 @@ dependencies = [
  "libc",
  "redox_syscall 0.4.1",
  "smallvec",
- "windows-targets",
+ "windows-targets 0.48.5",
 ]
 
 [[package]]
@@ -3289,6 +3272,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "ring"
+version = "0.17.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c17fa4cb658e3583423e915b9f3acc01cceaee1860e33d59ebae66adc3a2dc0d"
+dependencies = [
+ "cc",
+ "cfg-if",
+ "getrandom 0.2.11",
+ "libc",
+ "spin",
+ "untrusted",
+ "windows-sys 0.52.0",
+]
+
+[[package]]
 name = "rkyv"
 version = "0.7.42"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3357,7 +3355,31 @@ dependencies = [
  "errno",
  "libc",
  "linux-raw-sys",
- "windows-sys",
+ "windows-sys 0.48.0",
+]
+
+[[package]]
+name = "rustls"
+version = "0.21.12"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3f56a14d1f48b391359b22f731fd4bd7e43c97f3c50eee276f3aa09c94784d3e"
+dependencies = [
+ "log",
+ "ring",
+ "rustls-webpki",
+ "sct",
+]
+
+[[package]]
+name = "rustls-native-certs"
+version = "0.6.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a9aace74cb666635c918e9c12bc0d348266037aa8eb599b5cba565709a8dff00"
+dependencies = [
+ "openssl-probe",
+ "rustls-pemfile",
+ "schannel",
+ "security-framework",
 ]
 
 [[package]]
@@ -3367,6 +3389,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1c74cae0a4cf6ccbbf5f359f08efdf8ee7e1dc532573bf0db71968cb56b1448c"
 dependencies = [
  "base64",
+]
+
+[[package]]
+name = "rustls-webpki"
+version = "0.101.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8b6275d1ee7a1cd780b64aca7726599a1dbc893b1e64144529e55c3c2f745765"
+dependencies = [
+ "ring",
+ "untrusted",
 ]
 
 [[package]]
@@ -3396,7 +3428,7 @@ version = "0.1.22"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0c3733bf4cf7ea0880754e19cb5a462007c4a8c1914bff372ccc95b464f1df88"
 dependencies = [
- "windows-sys",
+ "windows-sys 0.48.0",
 ]
 
 [[package]]
@@ -3416,6 +3448,16 @@ name = "scratch"
 version = "1.0.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a3cf7c11c38cb994f3d40e8a8cde3bbd1f72a435e4c49e85d6553d8312306152"
+
+[[package]]
+name = "sct"
+version = "0.7.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "da046153aa2352493d6cb7da4b6e5c0c057d8a1d0a9aa8560baffdd945acd414"
+dependencies = [
+ "ring",
+ "untrusted",
+]
 
 [[package]]
 name = "seahash"
@@ -3714,8 +3756,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7b5fac59a5cb5dd637972e5fca70daf0523c9067fcdc4842f053dae04a18f8e9"
 dependencies = [
  "libc",
- "windows-sys",
+ "windows-sys 0.48.0",
 ]
+
+[[package]]
+name = "spin"
+version = "0.9.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6980e8d7511241f8acf4aebddbb1ff938df5eebe98691418c4468d0b72a96a67"
 
 [[package]]
 name = "spki"
@@ -3871,7 +3919,7 @@ dependencies = [
  "fastrand",
  "redox_syscall 0.4.1",
  "rustix",
- "windows-sys",
+ "windows-sys 0.48.0",
 ]
 
 [[package]]
@@ -3984,7 +4032,7 @@ dependencies = [
  "pin-project-lite",
  "socket2 0.5.5",
  "tokio-macros",
- "windows-sys",
+ "windows-sys 0.48.0",
 ]
 
 [[package]]
@@ -3999,12 +4047,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "tokio-native-tls"
-version = "0.3.1"
+name = "tokio-rustls"
+version = "0.24.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bbae76ab933c85776efabc971569dd6119c580d8f5d448769dec1764bf796ef2"
+checksum = "c28327cf380ac148141087fbfb9de9d7bd4e84ab5d2c28fbc911d753de8a7081"
 dependencies = [
- "native-tls",
+ "rustls",
  "tokio",
 ]
 
@@ -4027,9 +4075,10 @@ checksum = "212d5dcb2a1ce06d81107c3d0ffa3121fe974b73f068c8282cb1c32328113b6c"
 dependencies = [
  "futures-util",
  "log",
- "native-tls",
+ "rustls",
+ "rustls-native-certs",
  "tokio",
- "tokio-native-tls",
+ "tokio-rustls",
  "tungstenite",
 ]
 
@@ -4193,8 +4242,9 @@ dependencies = [
  "http",
  "httparse",
  "log",
- "native-tls",
  "rand 0.8.5",
+ "rustls",
+ "rustls-native-certs",
  "sha1",
  "thiserror",
  "url",
@@ -4276,6 +4326,12 @@ dependencies = [
  "generic-array 0.14.7",
  "subtle",
 ]
+
+[[package]]
+name = "untrusted"
+version = "0.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8ecb6da28b8a351d773b68d5825ac39017e680750f980f3a1a85cd8dd28a47c1"
 
 [[package]]
 name = "url"
@@ -4567,7 +4623,7 @@ version = "0.48.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e686886bc078bc1b0b600cac0147aadb815089b6e4da64016cbd754b6342700f"
 dependencies = [
- "windows-targets",
+ "windows-targets 0.48.5",
 ]
 
 [[package]]
@@ -4576,7 +4632,7 @@ version = "0.51.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f1f8cf84f35d2db49a46868f947758c7a1138116f7fac3bc844f43ade1292e64"
 dependencies = [
- "windows-targets",
+ "windows-targets 0.48.5",
 ]
 
 [[package]]
@@ -4585,7 +4641,16 @@ version = "0.48.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "677d2418bec65e3338edb076e806bc1ec15693c5d0104683f2efe857f61056a9"
 dependencies = [
- "windows-targets",
+ "windows-targets 0.48.5",
+]
+
+[[package]]
+name = "windows-sys"
+version = "0.52.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "282be5f36a8ce781fad8c8ae18fa3f9beff57ec1b52cb3de0789201425d9a33d"
+dependencies = [
+ "windows-targets 0.52.6",
 ]
 
 [[package]]
@@ -4594,13 +4659,29 @@ version = "0.48.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9a2fa6e2155d7247be68c096456083145c183cbbbc2764150dda45a87197940c"
 dependencies = [
- "windows_aarch64_gnullvm",
- "windows_aarch64_msvc",
- "windows_i686_gnu",
- "windows_i686_msvc",
- "windows_x86_64_gnu",
- "windows_x86_64_gnullvm",
- "windows_x86_64_msvc",
+ "windows_aarch64_gnullvm 0.48.5",
+ "windows_aarch64_msvc 0.48.5",
+ "windows_i686_gnu 0.48.5",
+ "windows_i686_msvc 0.48.5",
+ "windows_x86_64_gnu 0.48.5",
+ "windows_x86_64_gnullvm 0.48.5",
+ "windows_x86_64_msvc 0.48.5",
+]
+
+[[package]]
+name = "windows-targets"
+version = "0.52.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9b724f72796e036ab90c1021d4780d4d3d648aca59e491e6b98e725b84e99973"
+dependencies = [
+ "windows_aarch64_gnullvm 0.52.6",
+ "windows_aarch64_msvc 0.52.6",
+ "windows_i686_gnu 0.52.6",
+ "windows_i686_gnullvm",
+ "windows_i686_msvc 0.52.6",
+ "windows_x86_64_gnu 0.52.6",
+ "windows_x86_64_gnullvm 0.52.6",
+ "windows_x86_64_msvc 0.52.6",
 ]
 
 [[package]]
@@ -4610,10 +4691,22 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2b38e32f0abccf9987a4e3079dfb67dcd799fb61361e53e2882c3cbaf0d905d8"
 
 [[package]]
+name = "windows_aarch64_gnullvm"
+version = "0.52.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "32a4622180e7a0ec044bb555404c800bc9fd9ec262ec147edd5989ccd0c02cd3"
+
+[[package]]
 name = "windows_aarch64_msvc"
 version = "0.48.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dc35310971f3b2dbbf3f0690a219f40e2d9afcf64f9ab7cc1be722937c26b4bc"
+
+[[package]]
+name = "windows_aarch64_msvc"
+version = "0.52.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "09ec2a7bb152e2252b53fa7803150007879548bc709c039df7627cabbd05d469"
 
 [[package]]
 name = "windows_i686_gnu"
@@ -4622,10 +4715,28 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a75915e7def60c94dcef72200b9a8e58e5091744960da64ec734a6c6e9b3743e"
 
 [[package]]
+name = "windows_i686_gnu"
+version = "0.52.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8e9b5ad5ab802e97eb8e295ac6720e509ee4c243f69d781394014ebfe8bbfa0b"
+
+[[package]]
+name = "windows_i686_gnullvm"
+version = "0.52.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0eee52d38c090b3caa76c563b86c3a4bd71ef1a819287c19d586d7334ae8ed66"
+
+[[package]]
 name = "windows_i686_msvc"
 version = "0.48.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8f55c233f70c4b27f66c523580f78f1004e8b5a8b659e05a4eb49d4166cca406"
+
+[[package]]
+name = "windows_i686_msvc"
+version = "0.52.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "240948bc05c5e7c6dabba28bf89d89ffce3e303022809e73deaefe4f6ec56c66"
 
 [[package]]
 name = "windows_x86_64_gnu"
@@ -4634,16 +4745,34 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "53d40abd2583d23e4718fddf1ebec84dbff8381c07cae67ff7768bbf19c6718e"
 
 [[package]]
+name = "windows_x86_64_gnu"
+version = "0.52.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "147a5c80aabfbf0c7d901cb5895d1de30ef2907eb21fbbab29ca94c5b08b1a78"
+
+[[package]]
 name = "windows_x86_64_gnullvm"
 version = "0.48.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0b7b52767868a23d5bab768e390dc5f5c55825b6d30b86c844ff2dc7414044cc"
 
 [[package]]
+name = "windows_x86_64_gnullvm"
+version = "0.52.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "24d5b23dc417412679681396f2b49f3de8c1473deb516bd34410872eff51ed0d"
+
+[[package]]
 name = "windows_x86_64_msvc"
 version = "0.48.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ed94fce61571a4006852b7389a063ab983c02eb1bb37b47f8272ce92d06d9538"
+
+[[package]]
+name = "windows_x86_64_msvc"
+version = "0.52.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "589f6da84c646204747d1270a2a5661ea66ed1cced2631d546fdfb155959f9ec"
 
 [[package]]
 name = "winnow"

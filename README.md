@@ -18,15 +18,15 @@ pip install --break-system-packages target/wheels/iroha-0.1.0-cp312-cp312-manyli
 The exact path to the .whl file may vary. After an installation, do a small test to check the installation was successful. Normally, this test will display the library's contents:
 
 ```
-python -c "import iroha; print(dir(iroha))"
-['Account', 'AccountId', 'Asset', 'AssetDefinition', 'AssetDefinitionId', 'AssetId', 'AssetType', 'BlockHeader', 'Client', 'DomainId', 'Instruction', 'KeyPair', 'Mintable', 'NewAccount', 'NewAssetDefinition', 'PrivateKey', 'PublicKey', 'Role', 'SignedTransaction', 'TransactionQueryOutput', '__all__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__path__', '__spec__', 'hash', 'iroha']
+python -c "import iroha2; print(dir(iroha2))"
+['Account', 'AccountId', 'Asset', 'AssetDefinition', 'AssetDefinitionId', 'AssetId', 'AssetType', 'BlockHeader', 'Client', 'CommittedTransaction', 'DomainId', 'Instruction', 'KeyPair', 'Mintable', 'NewAssetDefinition', 'PrivateKey', 'PublicKey', 'Role', 'SignedTransaction', '__all__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__path__', '__spec__', 'hash', 'iroha2']
 ```
 
 If there was no error, you should be able to use iroha-python library.
 You may also see an error that ends like this:
 
 ```
-ModuleNotFoundError: No module named 'iroha'
+ModuleNotFoundError: No module named 'iroha2'
 ```
 
 This means that the pip install did not work properly.
